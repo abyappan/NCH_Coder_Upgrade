@@ -277,6 +277,7 @@ visium_BrCa = loadGiotto(path_to_folder = file.path(source_data_path, "/Data/", 
 ### Filepaths
 
 ```{r}
+
 # visium folder where the data is saved
 data_path = file.path(source_data_path, "/Visium/")
 
@@ -303,7 +304,7 @@ instrs = createGiottoInstructions(
     show_plot = FALSE,
     return_plot = TRUE, 
     python_path = my_python_path
-) # spatial data takes a long time to render in the plot windows, so it's nice to not show them, just save and open
+)
 ```
 
 ### 1.2 Manual Giotto object creation
@@ -420,7 +421,6 @@ visium_BrCa = createGiottoVisiumObject(visium_dir = data_path,
 
 ```{r}
 showGiottoImageNames(visium_BrCa) # "image" is the default name
-# large image class is a type of object, easier to interact with
 ```
 
 #### 1.4.2 check cell / spot metadata
@@ -428,7 +428,6 @@ showGiottoImageNames(visium_BrCa) # "image" is the default name
 ```{r}
 pDataDT(visium_BrCa)
 getCellMetadata(visium_BrCa)
-# cell IDs are barcodes
 ```
 
 #### 1.4.3 check feature / gene
@@ -436,11 +435,6 @@ getCellMetadata(visium_BrCa)
 ```{r}
 fDataDT(visium_BrCa)
 getFeatureMetadata(visium_BrCa)
-#An object of class featMetaObj 
-#spat_unit : "cell"
-#feat_type : "rna"
-#provenance: cell
-# shows layers and how to aggregate data
 ```
 
 #### 1.4.4 show plot
