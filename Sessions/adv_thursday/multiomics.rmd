@@ -29,13 +29,14 @@ If you're on the IGM cluster, you can just log into the server and you should be
 # Franklin setup
 ```{bash setup}
 #| eval: false
-srun -c 2 --x11 --pty bash
+srun -c 2 -p himem --x11 --pty bash
 ml purge
 ml GCC/9.3.0 OpenMPI/4.0.3 scrgot/24
 ```
 
 Load libraries
 ```{r libraries, cache=FALSE, warning=FALSE, error=FALSE, message=FALSE}
+# pak::pkg_install()
 library(rrrSingleCellUtils)
 library(tidyverse)
 library(Seurat)
@@ -183,8 +184,7 @@ seurat_obj[["ATAC"]] <-
 # Filter out likely junk cells
 Not going to walk through this as it should all be review
 ```{r}
-cutoffs <-
-    tribble(~feature, ~min_val, ~max_val,
+cutoffs <- tribble(~feature, ~min_val, ~max_val,
             "nCount_RNA", 2000, 50000,
             "nFeature_RNA", 1000, 10000,
             "percent_mt_rna", 0, 20,
@@ -241,7 +241,8 @@ cell_assign <-
                      labels = list(hpca$label.main,
                                    blueprint$label.main,
                                    immune$label.main))
-
+# png("output/Rplot%03d.png")
+pdf("output/Rplot%03d.png")
 seurat_obj$cell_type <-
     cell_assign$labels %>%
     str_replace("DC", "Dendritic cells")
@@ -250,7 +251,7 @@ seurat_obj$cell_score <-
     apply(MARGIN = 1, function(x) max(x, na.rm = TRUE))
 
 DimPlot(seurat_obj,
-        group.by = "cell_type",
+        # group.by = "cell_type",
         reduction = "umap_rna",
         label = TRUE,
         repel = TRUE)

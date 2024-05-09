@@ -73,7 +73,14 @@ expression analysis.
   * Visualize top 3 most significantly different genes using a VlnPlot
   * Perform GSEA analysis on the CD14 Monocytes Severe vs. Mild DEGs using the Hallmark geneset
   * Visualize GSEA results as a bubble plot
+```{r}
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
 
+BiocManager::install("fgsea")
+
+BiocManager::install("DESeq2")
+```
     
 ```{r setup, include=FALSE}
 library(Seurat)
