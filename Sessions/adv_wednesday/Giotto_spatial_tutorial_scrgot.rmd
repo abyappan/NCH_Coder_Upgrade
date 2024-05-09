@@ -1211,7 +1211,7 @@ See <https://drieslab.github.io/Giotto_website/articles/saving_object.html> for 
 ```{r, eval=FALSE}
 saveGiotto(gobject = visium_BrCa,
            dir = file.path(source_data_path, '/Data/',
-           foldername = 'workshop_visium')
+           foldername = 'workshop_visium'))
 
 visium_BrCa_reload = loadGiotto(path_to_folder = file.path(source_data_path, '/Data/', 'workshop_visium'))
 
@@ -1317,11 +1317,11 @@ saveGiotto(gobject = xenium_BrCa_subset,
 
 Let's use our shortcut:
 
-```{r, eval=TRUE}
+```{r, eval=FALSE}
 xenium_BrCa_subset = loadGiotto(path_to_folder = file.path(source_data_path, '/Data/', 'workshop_xenium_subset_start'))
 ```
 
-```{r}
+```{r, eval=F}
 spatPlot2D(xenium_BrCa_subset,
            spat_unit = 'cell',
            point_shape = 'no_border',
@@ -1332,7 +1332,7 @@ spatPlot2D(xenium_BrCa_subset,
 
 ### 2.2 calculate overlaps between transcripts and polygons
 
-```{r}
+```{r, eval = FALSE}
 # spatial overlap
 xenium_BrCa_subset = calculateOverlapRaster(xenium_BrCa_subset,
                                             spatial_info = 'cell',
@@ -1349,7 +1349,7 @@ showGiottoExpression(xenium_BrCa_subset)
 
 ### 2.3 standard processing steps
 
-```{r}
+```{r, eval = FALSE}
 # filter 'zero-'cells
 xenium_BrCa_subset = filterGiotto(gobject = xenium_BrCa_subset,
                            spat_unit = 'cell',
@@ -1453,7 +1453,7 @@ spatInSituPlotPoints(xenium_BrCa_subset,
 
 ### 3.1. Identify cluster marker genes
 
-```{r}
+```{r, eval = FALSE}
 # Scran Markers
 scran_markers = findMarkers_one_vs_all(gobject = xenium_BrCa_subset,
                                        method = 'scran',
@@ -1508,7 +1508,7 @@ writeChatGPTquery(DEG_output = gini_markers,
 
 ### 3.3. assign cell types to clusters
 
-```{r}
+```{r, eval = FALSE}
 ## create vector with names following the cluster names
 clusters_cell_types = c('CAFs', 'Macrophage_M2', 'naive_Tcells', 'Lum_BrCa_cells_1',
                         'Myoepithelial', 'DCs', 'Cytotoxic_Tcells', 'Lum_BrCa_cells_2',
@@ -1543,7 +1543,7 @@ spatInSituPlotPoints(xenium_BrCa_subset,
 
 ### 3.4 additional visualizations
 
-```{r}
+```{r, eval = FALSE}
 
 # visualize select cell types
 cell_type_names = as.character(clusters_cell_types)
@@ -1616,7 +1616,7 @@ spatInSituPlotPoints(xenium_BrCa_subset,
 
 ### 4.1 create spatial network
 
-```{r}
+```{r, eval = FALSE}
 # create spatial network
 xenium_BrCa_subset <- createSpatialNetwork(gobject = xenium_BrCa_subset, 
                                            maximum_distance_delaunay = 500)
@@ -1638,7 +1638,7 @@ Zoom: ![](images/spatial_network.png)
 -   depends on tissue region
 -   depends on spatial network (bigger or smaller neighborhoods)
 
-```{r}
+```{r, eval = FALSE}
 cell_proximities = cellProximityEnrichment(gobject = xenium_BrCa_subset,
                                            cluster_column = 'cell_types',
                                            adjust_method = 'fdr',
@@ -1661,7 +1661,7 @@ cellProximityHeatmap(gobject = xenium_BrCa_subset,
 
 Visualize two cell types:
 
-```{r}
+```{r, eval = FALSE}
 cell_type_names = as.character(clusters_cell_types)
 custom_colors = rep('lightgray', length(cell_type_names))
 names(custom_colors) = cell_type_names
@@ -1688,7 +1688,7 @@ spatInSituPlotPoints(xenium_BrCa_subset,
 
 ### 4.3 cell type niche clustering
 
-```{r}
+```{r, eval = FALSE}
 showGiottoSpatNetworks(xenium_BrCa_subset)
 xenium_BrCa_subset <- calculateSpatCellMetadataProportions(gobject = xenium_BrCa_subset,
                                                            spat_network = 'Delaunay_network',
@@ -1739,7 +1739,7 @@ spatInSituPlotPoints(gobject = xenium_BrCa_subset,
 
 What's the composition of the niches?
 
-```{r}
+```{r, eval = FALSE}
 
 # get cell metadata
 cell_meta = pDataDT(xenium_BrCa_subset)
