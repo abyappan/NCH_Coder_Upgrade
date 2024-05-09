@@ -39,7 +39,7 @@ If you're on the IGM cluster, you can just log into the server and you should be
 #| eval: false
 # compute node
 srun -c 2 --x11 --pty bash
-srun -c 2 --x11 --pty bash
+srun -c 4 --x11 --pty bash
 # get all packages
 ml purge
 ml GCC/9.3.0 OpenMPI/4.0.3 scrgot/24
