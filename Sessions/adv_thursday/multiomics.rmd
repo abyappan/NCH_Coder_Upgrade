@@ -27,7 +27,7 @@ This module includes the R packages we'll be using for the workshop.
 If you're on the IGM cluster, you can just log into the server and you should be good to go.
 
 # Franklin setup
-```{bash setup}
+```{bash}
 #| eval: false
 srun -c 2 -p himem --x11 --pty bash
 ml purge
@@ -42,6 +42,8 @@ library(tidyverse)
 library(Seurat)
 library(Signac)
 library(patchwork)
+library(celldex)
+library(SingleR)
 ```
 
 --------------------------------------------------------------------------------
@@ -357,10 +359,12 @@ plot_factors <-
       "atac_pct_dups")
 
 plot_name <- feature_hist(seurat_obj, plot_factors)
+
 ggsave("Sessions/adv_thursday/atac_feat_hist.png",
        plot_name,
        width = 6,
        height = 10)
+
 plot_name
 ```
 
@@ -565,7 +569,7 @@ ggplot(combined_umap,
        aes(x = UMAP_1,
            y = UMAP_2,
            shape = data_type)) +
-    geom_point(aes(color = rna_cluster == draw_cluster),
+    geom_point(aes(color = rna_cluster == draw_cluster_1),
                alpha = 0.5) +
     scale_color_brewer(palette = "Paired",
                        name = "Data type") +
@@ -645,7 +649,7 @@ ggsave("Sessions/adv_thursday/joint_umap.png",
 ```
 
 ### Correlation of ATAC peaks with gene expression
-```{r}
+```{r, eval = F, include = T}
 DefaultAssay(just_neurons) <- "ATAC"
 Idents(just_neurons) <- "ATAC_cluster"
 
@@ -716,7 +720,7 @@ CoveragePlot(object = just_neurons,
              extend.downstream = 100000)
 ```
 
-```{r}
+```{r, eval = F, include = T}
 freq_matrix <-
     TFBSTools::getMatrixSet(x = JASPAR2020::JASPAR2020,
                             opts = list(collection = "CORE",
