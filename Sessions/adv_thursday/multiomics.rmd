@@ -171,7 +171,7 @@ seurat_obj <-
 
 ## Add the ATAC data to the Seurat object
 Need to combine the datasets prior to filtering
-```{r}
+```{r,eval = F}
 frag_file <-
     paste0(data_path,
            "human_brain_3k_atac_fragments.tsv.gz")
